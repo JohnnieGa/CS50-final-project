@@ -55,14 +55,18 @@ bool Project::createNewTask()
         return true;
     }
 
-    if (newTask->getTaskEstTime() <= tasks[0]->getTaskEstTime())
+    for (auto it = tasks.begin(); it != tasks.end(); ++it)
+    {
+        if (newTask->getTaskEstTime() >= (*it)->getTaskEstTime())
+        {
+            tasks.insert(it, std::move(newTask));
+            return true;
+        }
+    }
+    
+    if (newTask->getTaskEstTime() < tasks.back()->getTaskEstTime())
     {
         tasks.push_back(std::move(newTask));
-        return true;
-    }
-    else
-    {
-        tasks.insert(tasks.begin(), std::move(newTask));
         return true;
     }
 
