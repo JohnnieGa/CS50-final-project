@@ -63,14 +63,8 @@ bool Project::createNewTask()
             return true;
         }
     }
-    
-    if (newTask->getTaskEstTime() < tasks.back()->getTaskEstTime())
-    {
-        tasks.push_back(std::move(newTask));
-        return true;
-    }
-
-    return false;
+    tasks.push_back(std::move(newTask));
+    return true;
 }
 
 void Project::printProjectInfo()
